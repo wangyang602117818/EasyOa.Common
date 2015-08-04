@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EasyOa.Common
-{
+{ 
     public static class LogHelper
     {
         private static readonly ILog exceptionLog = LogManager.GetLogger("FileAppender");
