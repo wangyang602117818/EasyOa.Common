@@ -33,11 +33,17 @@
     <Reference Include="ChnCharInfo">
       <HintPath>..\libs\ChnCharInfo.dll</HintPath>
     </Reference>
+    <Reference Include="IBatisNet.Common">
+      <HintPath>..\libs\IBatisNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.DataMapper">
+      <HintPath>..\libs\IBatisNet.DataMapper.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\libs\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\EasyOa.Web\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client">
       <HintPath>..\libs\RabbitMQ.Client.dll</HintPath>
@@ -59,7 +65,6 @@
     <Compile Include="Extentions\EnumExtention.cs" />
     <Compile Include="Extentions\RandomExtention.cs" />
     <Compile Include="ObjectHelper.cs" />
-    <Compile Include="RabbitMq\LogConsumer.cs" />
     <Compile Include="RabbitMq\LogRabbitMq.cs" />
     <Compile Include="RabbitMq\RabbitConnection.cs" />
     <Compile Include="Serializer\BinarySerializerHelper.cs" />
