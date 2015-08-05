@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EasyOa.Common
 {
-    public class RabbitConnection
+    public static class RabbitConnection
     {
         private static string mqpath = AppConfig.GetConfig("mqpath");
         public static IConnection GetConnection()

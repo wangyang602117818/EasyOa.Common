@@ -45,13 +45,13 @@ namespace EasyOa.Common
             }
         }
         /// <summary>
-        /// 在项目根目录写日志
+        /// 在项目根目录写日志,文件夹为当前日期
         /// </summary>
         /// <param name="filename"></param>
         /// <param name="msg"></param>
         public static void WriteFile(string filename, string msg)
         {
-            string fullpath = AppConfig.basePath;
+            string fullpath = AppConfig.basePath + DateTime.Now.ToString("yyyyMMdd");
             WriteFile(fullpath, filename, msg);
         }
     }

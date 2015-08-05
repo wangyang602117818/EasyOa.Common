@@ -13,6 +13,11 @@ namespace EasyOa.Common
         /// 网站跟目录
         /// </summary>
         public static string basePath = AppDomain.CurrentDomain.BaseDirectory; //AppDomain.CurrentDomain.SetupInformation.ApplicationBase
+        /// <summary>
+        /// 获取配置文件节点
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static string GetConfig(string key)
         {
             return ConfigurationManager.AppSettings[key];

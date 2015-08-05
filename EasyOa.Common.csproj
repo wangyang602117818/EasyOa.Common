@@ -65,7 +65,9 @@
     <Compile Include="Extentions\EnumExtention.cs" />
     <Compile Include="Extentions\RandomExtention.cs" />
     <Compile Include="ObjectHelper.cs" />
-    <Compile Include="RabbitMq\LogRabbitMq.cs" />
+    <Compile Include="RabbitMq\LogDequeue.cs" />
+    <Compile Include="RabbitMq\LogEnqueue.cs" />
+    <Compile Include="RabbitMq\LogQueueBase.cs" />
     <Compile Include="RabbitMq\RabbitConnection.cs" />
     <Compile Include="Serializer\BinarySerializerHelper.cs" />
     <Compile Include="Util\EncryptHelper.cs" />
