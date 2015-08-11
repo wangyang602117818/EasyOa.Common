@@ -20,7 +20,7 @@ namespace EasyOa.Common
         /// </summary>
         /// <param name="str">要计算的字符串</param>
         /// <returns></returns>
-        public static string Md5String(string str)
+        public static string StringMd5(string str)
         {
             byte[] md5bytes = md5.ComputeHash(Encoding.UTF8.GetBytes(str));
             StringBuilder sb = new StringBuilder();
@@ -35,7 +35,7 @@ namespace EasyOa.Common
         /// </summary>
         /// <param name="path">要计算的文件的路径</param>
         /// <returns></returns>
-        public static string Md5File(string path)
+        public static string FileMd5(string path)
         {
             if (!File.Exists(path)) return "";
             using (FileStream fs = File.Open(path, FileMode.Open))
