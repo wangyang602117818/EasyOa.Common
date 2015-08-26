@@ -45,7 +45,7 @@ namespace EasyOa.Common
             }
         }
         /// <summary>
-        /// 在项目根目录写日志,文件夹为当前日期
+        /// 在项目根目录创建文件夹写日志,文件夹为当前日期
         /// </summary>
         /// <param name="filename"></param>
         /// <param name="msg"></param>
