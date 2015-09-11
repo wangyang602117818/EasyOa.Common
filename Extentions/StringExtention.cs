@@ -41,14 +41,9 @@ namespace EasyOa.Common
                     {
                         if (simple)
                         {
-                            if (value.Length > 1)
-                            {
-                                str = str.Replace(key, value[1]);
-                            }
-                            else
-                            {
-                                str = str.Replace(key, value[0].Substring(0, 1));
-                            }
+                            str = value.Length > 1
+                                      ? str.Replace(key, value[1])
+                                      : str.Replace(key, value[0].Substring(0, 1));
                         }
                         else
                         {
@@ -116,7 +111,7 @@ namespace EasyOa.Common
             if (string.IsNullOrEmpty(str)) return "";
             return Regex.Unescape(str);  //方式一
             //return Regex.Replace(str, @"\\u(\w{4})", (match) => ((char)int.Parse(match.Groups[1].Value, NumberStyles.HexNumber)).ToString());   //方式二
-            
+
         }
     }
 }
