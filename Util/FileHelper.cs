@@ -13,7 +13,7 @@ namespace EasyOa.Common
         /// 读取文本文件，返回字典,其中文本中的第一个字符串作为key，后面的作为value
         /// </summary>
         /// <param name="fullpath">文件绝对路径</param>
-        /// <param name="sign">文件分隔符</param>
+        /// <param name="sign">文本分隔符</param>
         /// <returns></returns>
         public static Dictionary<string, string[]> ReadFileSplit(string fullpath, string sign = " ")
         {
@@ -37,9 +37,20 @@ namespace EasyOa.Common
         /// <param name="msg"></param>
         public static void WriteFile(string fullpath, string filename, string msg)
         {
+            WriteFileCover(fullpath, filename, msg, true);
+        }
+        /// <summary>
+        /// 吧字符串写入文件，并覆盖源文件内容
+        /// </summary>
+        /// <param name="fullpath"></param>
+        /// <param name="filename"></param>
+        /// <param name="msg"></param>
+        /// <param name="cover">true:追加，false:覆盖</param>
+        public static void WriteFileCover(string fullpath, string filename, string msg, bool cover)
+        {
             if (!Directory.Exists(fullpath)) Directory.CreateDirectory(fullpath);
             string fileName = Path.Combine(fullpath, filename);
-            using (StreamWriter sw = new StreamWriter(fileName, true))
+            using (StreamWriter sw = new StreamWriter(fileName, cover))
             {
                 sw.WriteLine(msg);
             }

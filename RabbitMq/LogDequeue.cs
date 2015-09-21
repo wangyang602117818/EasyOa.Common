@@ -8,6 +8,9 @@ using RabbitMQ.Client.Events;
 
 namespace EasyOa.Common
 {
+    /// <summary>
+    /// 日志出队操作，适合windows服务项目
+    /// </summary>
     public class LogDequeue : LogQueueBase
     {
         private static IConnection connection;
@@ -55,7 +58,6 @@ namespace EasyOa.Common
                 channel.BasicPublish(exchange_name, route_key, ea.BasicProperties, body); //不调用现成的方法，是因为会产生新的tcp连接
                 return null;
             }
-
         }
     }
 }

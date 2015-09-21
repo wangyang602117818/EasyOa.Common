@@ -10,7 +10,7 @@ using RabbitMQ.Client;
 namespace EasyOa.Common
 {
     /// <summary>
-    /// 日志队列
+    /// 日志队列,适合各个项目
     /// </summary>
     public class LogEnqueue : LogQueueBase
     {
