@@ -55,6 +55,7 @@
     <Compile Include="AppConfig.cs" />
     <Compile Include="Enum\AcceptType.cs" />
     <Compile Include="Enum\ContentType.cs" />
+    <Compile Include="Enum\HttpMethodType.cs" />
     <Compile Include="Enum\SMSParaType.cs" />
     <Compile Include="Extentions\EnumExtention.cs" />
     <Compile Include="Extentions\RandomExtention.cs" />

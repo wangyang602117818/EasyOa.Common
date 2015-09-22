@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EasyOa.Common
-{ 
+{
     public static class LogHelper
     {
         private static readonly ILog exceptionLog = LogManager.GetLogger("FileAppender");
@@ -23,6 +23,14 @@ namespace EasyOa.Common
         public static void WriteException(Exception ex)
         {
             exceptionLog.Error(ex);
+        }
+        /// <summary>
+        /// 错误日志
+        /// </summary>
+        /// <param name="str">异常信息</param>
+        public static void WriteException(string str)
+        {
+            exceptionLog.Error(str);
         }
         /// <summary>
         /// 邮件日志
@@ -48,7 +56,7 @@ namespace EasyOa.Common
         /// <param name="name">文件名</param>
         /// <param name="logInfo">文件类容</param>
         public static void WriteFileLog(string fullpath, string filename, string logInfo)
-        {      
+        {
             FileHelper.WriteFile(fullpath, filename, logInfo);
         }
     }

@@ -33,7 +33,6 @@ namespace EasyOa.Common
         [Description("application/json;charset=utf-8")]
         json,
 
-
     }
     /// <summary>
     /// 响应contenttype

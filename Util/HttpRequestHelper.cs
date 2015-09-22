@@ -20,7 +20,7 @@ namespace EasyOa.Common
         /// <returns></returns>
         public static string Post(string url, string paras)
         {
-            return Post(url, null, null, null, paras);
+            return Post(url, paras, null, null, null);
         }
         /// <summary>
         /// 发送post请求
@@ -29,9 +29,9 @@ namespace EasyOa.Common
         /// <param name="headers">请求包头</param>
         /// <param name="paras">参数</param>
         /// <returns></returns>
-        public static string Post(string url, Dictionary<string, string> headers, string paras)
+        public static string Post(string url, string paras, Dictionary<string, string> headers)
         {
-            return Post(url, headers, null, null, paras);
+            return Post(url, paras, headers, null, null);
         }
         /// <summary>
         /// 发送post请求
@@ -42,10 +42,10 @@ namespace EasyOa.Common
         /// <param name="accept">接收内容格式</param>
         /// <param name="paras">参数</param>
         /// <returns></returns>
-        public static string Post(string url, Dictionary<string, string> headers, RequestContentType? contentType, AcceptType? accept, string paras)
+        public static string Post(string url, string paras, Dictionary<string, string> headers, RequestContentType? contentType, AcceptType? accept, HttpMethodType method = HttpMethodType.post)
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
-            request.Method = "post";
+            request.Method = method.GetDescription();
             if (headers != null)
             {
                 foreach (KeyValuePair<string, string> kv in headers)
@@ -60,12 +60,20 @@ namespace EasyOa.Common
             {
                 requestStream.Write(bs, 0, bs.Length);
             }
-            using (WebResponse response = request.GetResponse())
+            try
             {
-                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                using (WebResponse response = request.GetResponse())
                 {
-                    return reader.ReadToEnd();
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        return reader.ReadToEnd();
+                    }
                 }
+            }
+            catch (WebException ex)
+            {
+                LogHelper.WriteException(ex);
+                return "";
             }
         }
         /// <summary>
@@ -74,22 +82,31 @@ namespace EasyOa.Common
         /// <param name="url">地址</param>
         /// <param name="paras">参数</param>
         /// <returns></returns>
-        public static string Get(string url, string paras)
+        public static string Get(string url, string paras, HttpMethodType method = HttpMethodType.get)
         {
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url + "?" + paras);
-            request.Method = "get";
-            using (WebResponse response = request.GetResponse())
+            if (!string.IsNullOrEmpty(paras)) url = url + "?" + paras;
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+            request.Method = method.GetDescription();
+            try
             {
-                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                using (WebResponse response = request.GetResponse())
                 {
-                    return reader.ReadToEnd();
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        return reader.ReadToEnd();
+                    }
                 }
+            }
+            catch (WebException ex)
+            {
+                LogHelper.WriteException(ex);
+                return "";
             }
         }
 
         public static string BuildParas(NameValueCollection nv)
         {
-            if (nv == null) return "";
+            if (nv == null || nv.Count == 0) return "";
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < nv.Keys.Count; i++)
             {
@@ -99,7 +116,7 @@ namespace EasyOa.Common
         }
         public static string BuildParas(Hashtable ht)
         {
-            if (ht == null) return "";
+            if (ht == null || ht.Count == 0) return "";
             StringBuilder sb = new StringBuilder();
             foreach (string key in ht.Keys)
             {
@@ -109,7 +126,7 @@ namespace EasyOa.Common
         }
         public static string BuildParas(Dictionary<string, string> dict)
         {
-            if (dict == null) return "";
+            if (dict == null || dict.Count == 0) return "";
             StringBuilder sb = new StringBuilder();
             foreach (KeyValuePair<string, string> kv in dict)
             {
