@@ -26,8 +26,8 @@ namespace EasyOa.Common
         /// 发送post请求
         /// </summary>
         /// <param name="url">地址</param>
-        /// <param name="headers">请求包头</param>
         /// <param name="paras">参数</param>
+        /// <param name="headers">请求包头</param>
         /// <returns></returns>
         public static string Post(string url, string paras, Dictionary<string, string> headers)
         {
@@ -37,10 +37,10 @@ namespace EasyOa.Common
         /// 发送post请求
         /// </summary>
         /// <param name="url">地址</param>
+        /// <param name="paras">参数</param>
         /// <param name="headers">请求包头</param>
         /// <param name="contentType">请求内容格式</param>
         /// <param name="accept">接收内容格式</param>
-        /// <param name="paras">参数</param>
         /// <returns></returns>
         public static string Post(string url, string paras, Dictionary<string, string> headers, RequestContentType? contentType, AcceptType? accept, HttpMethodType method = HttpMethodType.post)
         {
