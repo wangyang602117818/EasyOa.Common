@@ -73,7 +73,7 @@ namespace EasyOa.Common
             catch (WebException ex)
             {
                 LogHelper.WriteException(ex);
-                return "";
+                return null;
             }
         }
         /// <summary>
@@ -100,10 +100,20 @@ namespace EasyOa.Common
             catch (WebException ex)
             {
                 LogHelper.WriteException(ex);
-                return "";
+                return null;
             }
         }
-
+        /// <summary>
+        /// http协议上传本地文件
+        /// </summary>
+        /// <param name="url">上传文件的url地址</param>
+        /// <param name="paras">参数</param>
+        /// <param name="fullFilePath">本文件路径</param>
+        /// <returns></returns>
+        public static string PostWithLocalFile(string url, string paras, string fullFilePath)
+        {
+            
+        }
         public static string BuildParas(NameValueCollection nv)
         {
             if (nv == null || nv.Count == 0) return "";
