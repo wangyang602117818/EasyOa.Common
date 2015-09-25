@@ -53,13 +53,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConfig.cs" />
+    <Compile Include="ConstData.cs" />
     <Compile Include="Enum\AcceptType.cs" />
     <Compile Include="Enum\ContentType.cs" />
     <Compile Include="Enum\HttpMethodType.cs" />
     <Compile Include="Enum\SMSParaType.cs" />
     <Compile Include="Extentions\EnumExtention.cs" />
     <Compile Include="Extentions\RandomExtention.cs" />
-    <Compile Include="ObjectHelper.cs" />
+    <Compile Include="Util\BuildRequestParams.cs" />
+    <Compile Include="Util\ObjectHelper.cs" />
     <Compile Include="RabbitMq\LogDequeue.cs" />
     <Compile Include="RabbitMq\LogEnqueue.cs" />
     <Compile Include="RabbitMq\LogQueueBase.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="Util\FileHelper.cs" />
     <Compile Include="Util\MailHelper.cs" />
     <Compile Include="Util\HttpRequestHelper.cs" />
+    <Compile Include="Util\ParseRequestParams.cs" />
     <Compile Include="Util\SMSHelper.cs" />
     <Compile Include="Serializer\XmlSerializerHelper.cs" />
     <Compile Include="LogHelper.cs" />

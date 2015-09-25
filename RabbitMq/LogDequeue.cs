@@ -25,7 +25,7 @@ namespace EasyOa.Common
             channel.BasicConsume(queue_name, false, consumer);
         }
         /// <summary>
-        /// 出队，
+        /// 出队，有重试次数设置，超过重试次数，删除消息
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns>code=-2:消息超过重试次数;code=-1:解析出错</returns>

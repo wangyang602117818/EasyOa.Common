@@ -77,7 +77,7 @@ namespace EasyOa.Common
             }
         }
         /// <summary>
-        /// get请求
+        /// get请求,
         /// </summary>
         /// <param name="url">地址</param>
         /// <param name="paras">参数</param>
@@ -110,40 +110,12 @@ namespace EasyOa.Common
         /// <param name="paras">参数</param>
         /// <param name="fullFilePath">本文件路径</param>
         /// <returns></returns>
-        public static string PostWithLocalFile(string url, string paras, string fullFilePath)
+        public static string PostAttachLocalFile(string url, string paras, string fullFilePath)
         {
-            
+
+            return null;
         }
-        public static string BuildParas(NameValueCollection nv)
-        {
-            if (nv == null || nv.Count == 0) return "";
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < nv.Keys.Count; i++)
-            {
-                sb.Append(nv.Keys[i] + "=" + nv[nv.Keys[i]] + "&");
-            }
-            return sb.ToString().TrimEnd('&');
-        }
-        public static string BuildParas(Hashtable ht)
-        {
-            if (ht == null || ht.Count == 0) return "";
-            StringBuilder sb = new StringBuilder();
-            foreach (string key in ht.Keys)
-            {
-                sb.Append(key + "=" + ht[key] + "&");
-            }
-            return sb.ToString().TrimEnd('&');
-        }
-        public static string BuildParas(Dictionary<string, string> dict)
-        {
-            if (dict == null || dict.Count == 0) return "";
-            StringBuilder sb = new StringBuilder();
-            foreach (KeyValuePair<string, string> kv in dict)
-            {
-                sb.Append(kv.Key + "=" + kv.Value + "&");
-            }
-            return sb.ToString().TrimEnd('&');
-        }
+       
     }
 
 }
