@@ -12,11 +12,24 @@ namespace EasyOa.Common.Util
     /// </summary>
     public static class ParseRequestParams
     {
-        public static NameValueCollection ParseToNameValueCollection(string requestDate)
+        /// <summary>
+        /// 参数字符串
+        /// </summary>
+        /// <param name="requestParams"></param>
+        /// <returns></returns>
+        public static NameValueCollection ParseToNameValueCollection(string requestParams)
         {
-            if (string.IsNullOrEmpty(requestDate)) return null;
-
-            return null;
+            NameValueCollection nv = new NameValueCollection();
+            if (string.IsNullOrEmpty(requestParams)) return nv;
+            string[] paramArray = requestParams.Split('&');
+            foreach (string str in paramArray)
+            {
+                string[] item = str.Split('=');
+                string key = item[0], value = item[1];
+                nv.Add(key, value);
+            }
+            return nv;
         }
+
     }
 }
