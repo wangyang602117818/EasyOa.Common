@@ -73,7 +73,7 @@ namespace EasyOa.Common
             }
             catch (WebException ex)
             {
-                LogHelper.WriteException(ex);
+                LogHelper.ErrorLog(ex);
                 return null;
             }
         }
@@ -100,7 +100,7 @@ namespace EasyOa.Common
             }
             catch (WebException ex)
             {
-                LogHelper.WriteException(ex);
+                LogHelper.ErrorLog(ex);
                 return null;
             }
         }
@@ -135,7 +135,7 @@ namespace EasyOa.Common
             }
             catch (WebException ex)
             {
-                LogHelper.WriteException(ex);
+                LogHelper.ErrorLog(ex);
                 return null;
             }
             if (fileBytes.Length > 0 && !string.IsNullOrEmpty(fileName))
@@ -186,7 +186,7 @@ namespace EasyOa.Common
             }
             catch (Exception ex)
             {
-                LogHelper.WriteException(ex);
+                LogHelper.ErrorLog(ex);
                 return null;
             }
         }

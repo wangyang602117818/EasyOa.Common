@@ -84,7 +84,7 @@ namespace EasyOa.Common
             }
             catch (SmtpException ex)
             {
-                LogHelper.WriteException(ex);
+                LogHelper.ErrorLog(ex);
             }
             return false;
         }

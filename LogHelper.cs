@@ -1,4 +1,5 @@
 ﻿using log4net;
+using log4net.Appender;
 using log4net.Layout;
 using log4net.Layout.Pattern;
 using System;
@@ -20,7 +21,7 @@ namespace EasyOa.Common
         /// 错误日志
         /// </summary>
         /// <param name="ex">异常信息</param>
-        public static void WriteException(Exception ex)
+        public static void ErrorLog(Exception ex)
         {
             exceptionLog.Error(ex);
         }
@@ -28,7 +29,7 @@ namespace EasyOa.Common
         /// 错误日志
         /// </summary>
         /// <param name="str">异常信息</param>
-        public static void WriteException(string str)
+        public static void ErrorLog(string str)
         {
             exceptionLog.Error(str);
         }
@@ -36,7 +37,7 @@ namespace EasyOa.Common
         /// 邮件日志
         /// </summary>
         /// <param name="ex"></param>
-        public static void MailException(Exception ex)
+        public static void MailLog(Exception ex)
         {
             mailLog.Error(ex);
         }
@@ -45,7 +46,7 @@ namespace EasyOa.Common
         /// </summary>
         /// <typeparam name="T">泛型类型</typeparam>
         /// <param name="log"></param>
-        public static void WriteLog<T>(T log)
+        public static void AdoNetLog<T>(T log)
         {
             operateLog.Info(log);
         }
@@ -55,7 +56,7 @@ namespace EasyOa.Common
         /// <param name="path">绝对路口</param>
         /// <param name="name">文件名</param>
         /// <param name="logInfo">文件类容</param>
-        public static void WriteFileLog(string fullpath, string filename, string logInfo)
+        public static void FileLog(string fullpath, string filename, string logInfo)
         {
             FileHelper.WriteFile(fullpath, filename, logInfo);
         }
