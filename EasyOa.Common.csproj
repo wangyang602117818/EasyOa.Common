@@ -33,6 +33,12 @@
     <Reference Include="ChnCharInfo">
       <HintPath>..\libs\ChnCharInfo.dll</HintPath>
     </Reference>
+    <Reference Include="IBatisNet.Common">
+      <HintPath>..\libs\IBatisNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.DataMapper">
+      <HintPath>..\libs\IBatisNet.DataMapper.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\libs\log4net.dll</HintPath>
     </Reference>
