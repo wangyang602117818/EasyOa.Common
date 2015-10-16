@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EasyOa.Common
 {
-    public class JsonHelper
+    public class JsonSerializerHelper
     {
         public static string Serialize(object obj)
         {

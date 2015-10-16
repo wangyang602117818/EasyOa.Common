@@ -37,7 +37,7 @@ namespace EasyOa.Common
         /// <param name="msg"></param>
         public static void WriteFile(string fullpath, string filename, string msg)
         {
-            WriteFileCover(fullpath, filename, msg, true);
+            WriteFile(fullpath, filename, msg, true);
         }
         /// <summary>
         /// 吧字符串写入文件，并覆盖源文件内容
@@ -45,12 +45,12 @@ namespace EasyOa.Common
         /// <param name="fullpath"></param>
         /// <param name="filename"></param>
         /// <param name="msg"></param>
-        /// <param name="cover">true:追加，false:覆盖</param>
-        public static void WriteFileCover(string fullpath, string filename, string msg, bool cover)
+        /// <param name="append">true:追加，false:覆盖</param>
+        public static void WriteFile(string fullpath, string filename, string msg, bool append)
         {
             if (!Directory.Exists(fullpath)) Directory.CreateDirectory(fullpath);
             string fileName = Path.Combine(fullpath, filename);
-            using (StreamWriter sw = new StreamWriter(fileName, cover))
+            using (StreamWriter sw = new StreamWriter(fileName, append))
             {
                 sw.WriteLine(msg);
             }

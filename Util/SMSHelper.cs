@@ -62,7 +62,7 @@ namespace EasyOa.Common
             SmsBody smsBody = new SmsBody { to = to, appId = appid, templateId = templateid, datas = contents };
             if (type == SMSBodyType.json)
             {
-                return HttpRequestHelper.Post(url, JsonHelper.Serialize(smsBody), dict, RequestContentType.json, AcceptType.json);
+                return HttpRequestHelper.Post(url, JsonSerializerHelper.Serialize(smsBody), dict, RequestContentType.json, AcceptType.json);
             }
             else
             {
