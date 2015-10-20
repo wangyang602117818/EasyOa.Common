@@ -8,6 +8,6 @@ namespace EasyOa.Common
 {
     public static class ConstData
     {
-        public static string LF = "\r\n";
+        public static string UploadFilePath = AppConfig.basePath + "WebResource/uploadfile";
     }
 }
