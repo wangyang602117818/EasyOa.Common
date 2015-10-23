@@ -33,22 +33,30 @@ namespace EasyOa.Common
         /// <summary>
         /// 文件MD5计算
         /// </summary>
-        /// <param name="path">要计算的文件的路径</param>
+        /// <param name="path">要计算的文件的本地路径</param>
         /// <returns></returns>
         public static string FileMd5(string path)
         {
             if (!File.Exists(path)) return "";
             using (FileStream fs = File.Open(path, FileMode.Open))
             {
-                byte[] md5Bytes = md5.ComputeHash(fs);
-                StringBuilder sb = new StringBuilder();
-                foreach (byte b in md5Bytes)
-                {
-                    sb.Append(b.ToString("x2"));
-                }
-                return sb.ToString();
+                return FileMd5(fs);
             }
         }
-
+        /// <summary>
+        /// 文件MD5计算
+        /// </summary>
+        /// <param name="stream">文件流</param>
+        /// <returns></returns>
+        public static string FileMd5(Stream stream)
+        {
+            byte[] md5Bytes = md5.ComputeHash(stream);
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in md5Bytes)
+            {
+                sb.Append(b.ToString("x2"));
+            }
+            return sb.ToString();
+        }
     }
 }
