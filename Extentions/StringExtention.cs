@@ -19,7 +19,7 @@ namespace EasyOa.Common
         /// <returns></returns>
         public static string ToMD5(this string str)
         {
-            return EncryptHelper.StringMd5(str);
+            return HashEncryptHelper.StringMd5(str);
         }
         /// <summary>
         /// 拼音转换
