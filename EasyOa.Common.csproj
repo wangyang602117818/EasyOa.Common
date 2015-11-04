@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="AppConfig.cs" />
     <Compile Include="ConstData.cs" />
+    <Compile Include="Encrypt\AsymmetricEncryptHelper.cs" />
     <Compile Include="Enum\AcceptType.cs" />
     <Compile Include="Enum\ContentType.cs" />
     <Compile Include="Enum\HttpMethodType.cs" />

@@ -16,14 +16,14 @@ namespace EasyOa.Common
         //初始化向量
         private static byte[] IV = { 0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF };
         /// <summary>
-        /// Aes加密算法
+        /// Aes加密算法，替代des
         /// </summary>
         /// <param name="sourceString"></param>
-        /// <param name="key">长度：16/24/32</param>
+        /// <param name="key">base64形式的key。如果为明文字符串则长度：16/24/32（改方法不支持）</param>
         /// <returns></returns>
         public static string AesEncode(string sourceString, string key)
         {
-            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+            byte[] keyBytes = Convert.FromBase64String(key);
             byte[] valueBytes = Encoding.UTF8.GetBytes(sourceString);
             using (Rijndael rijndael = Rijndael.Create())
             {
@@ -48,7 +48,7 @@ namespace EasyOa.Common
         /// <returns></returns>
         public static string AesDecode(string secretString, string key)
         {
-            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+            byte[] keyBytes = Convert.FromBase64String(key);
             byte[] inputBytes = Convert.FromBase64String(secretString);
             using (Rijndael rijndael = Rijndael.Create())
             {
@@ -74,7 +74,7 @@ namespace EasyOa.Common
         /// <returns>返回base64编码的密文</returns>
         public static string DESEncode(string sourceString, string key)
         {
-            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+            byte[] keyBytes = Convert.FromBase64String(key);
             byte[] valueBytes = Encoding.UTF8.GetBytes(sourceString);
             using (DES des = DES.Create())
             {
@@ -99,7 +99,7 @@ namespace EasyOa.Common
         /// <returns></returns>
         public static string DESDecode(string secretString, string key)
         {
-            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+            byte[] keyBytes = Convert.FromBase64String(key);
             byte[] inputBytes = Convert.FromBase64String(secretString);
             using (DES des = DES.Create())
             {
@@ -120,11 +120,11 @@ namespace EasyOa.Common
         /// 3DES加密，为DES向AES过度的版本
         /// </summary>
         /// <param name="sourceString">要加密的字符串</param>
-        /// <param name="key">字符串长度为24的key或16的key</param>
+        /// <param name="key">base64形式的key</param>
         /// <returns>返回base64编码的密文</returns>
         public static string TripleDESEncode(string sourceString, string key)
         {
-            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+            byte[] keyBytes = Convert.FromBase64String(key);
             byte[] valueBytes = Encoding.UTF8.GetBytes(sourceString);
             using (TripleDES tripleDes = TripleDES.Create())
             {
@@ -149,7 +149,7 @@ namespace EasyOa.Common
         /// <returns></returns>
         public static string TripleDESDecode(string secretString, string key)
         {
-            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+            byte[] keyBytes = Convert.FromBase64String(key);
             byte[] inputBytes = Convert.FromBase64String(secretString);
             using (TripleDES tripleDes = TripleDES.Create())
             {
@@ -165,6 +165,28 @@ namespace EasyOa.Common
                     }
                 }
             }
+        }
+        /// <summary>
+        /// 生成DES加密密钥
+        /// </summary>
+        /// <returns></returns>
+        public static string GenerateDESKey
+        {
+            get { return Convert.ToBase64String(DES.Create().Key); }
+        }
+        /// <summary>
+        /// 生成TripleDES加密密钥
+        /// </summary>
+        public static string GenerateTripleDESKey
+        {
+            get { return Convert.ToBase64String(TripleDES.Create().Key); }
+        }
+        /// <summary>
+        /// 生成AES加密密钥
+        /// </summary>
+        public static string GenerateAESKey
+        {
+            get { return Convert.ToBase64String(Rijndael.Create().Key); }
         }
 
     }
