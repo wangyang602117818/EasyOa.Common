@@ -30,7 +30,7 @@ namespace EasyOa.Common
         public static string ToSpell(this string str, bool simple = false)
         {
             if (string.IsNullOrEmpty(str)) return "";
-            string fullPath = AppConfig.basePath + AppConfig.GetConfig("pinypath");
+            string fullPath = AppConfig.BasePath + AppConfig.GetConfig("pinypath");
             Dictionary<string, string[]> dict = FileHelper.ReadFileSplit(fullPath, "|");
             if (dict != null && dict.Count > 0)
             {
@@ -112,6 +112,16 @@ namespace EasyOa.Common
             return Regex.Unescape(str);  //方式一
             //return Regex.Replace(str, @"\\u(\w{4})", (match) => ((char)int.Parse(match.Groups[1].Value, NumberStyles.HexNumber)).ToString());   //方式二
 
+        }
+        /// <summary>
+        /// 字符串转base64
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string ToBase64(this string str)
+        {
+            byte[] buffer = Encoding.UTF8.GetBytes(str);
+            return Convert.ToBase64String(buffer);
         }
     }
 }

@@ -62,7 +62,7 @@ namespace EasyOa.Common
         /// <param name="msg"></param>
         public static void WriteFile(string filename, string msg)
         {
-            string fullpath = AppConfig.basePath + DateTime.Now.ToString("yyyyMMdd");
+            string fullpath = AppConfig.BasePath + DateTime.Now.ToString("yyyyMMdd");
             WriteFile(fullpath, filename, msg);
         }
     }

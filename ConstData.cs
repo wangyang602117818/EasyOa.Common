@@ -9,7 +9,7 @@ namespace EasyOa.Common
 {
     public static class ConstData
     {
-        public static string UploadFilePath = AppConfig.basePath + "WebResource/uploadfile/";
+        public static string UploadFilePath = AppConfig.BasePath + "WebResource/uploadfile/";
         static ConstData()
         {
             if (!Directory.Exists(UploadFilePath)) Directory.CreateDirectory(UploadFilePath);
