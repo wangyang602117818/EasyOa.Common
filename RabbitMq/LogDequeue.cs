@@ -11,7 +11,7 @@ namespace EasyOa.Common
     /// <summary>
     /// 日志出队操作，适合windows服务项目
     /// </summary>
-    public class LogDequeue : LogQueueBase
+    public class LogDequeue<T> : LogQueueBase where T : class
     {
         private static IConnection connection;
         private static IModel channel;
@@ -25,38 +25,54 @@ namespace EasyOa.Common
             channel.BasicConsume(queue_name, false, consumer);
         }
         /// <summary>
-        /// 出队，有重试次数设置，超过重试次数，删除消息
+        /// 执行出队操作
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns>code=-2:消息超过重试次数;code=-1:解析出错</returns>
-        public static T TryDequeue<T>(out int code) where T : class
+        /// <param name="processMessage">用于处理消息的委托</param>
+        public static void DoDequeue(Func<T, bool> processMessage)
         {
-            code = 0;
-            BasicDeliverEventArgs ea = consumer.Queue.Dequeue();  //
-            byte[] body = ea.Body;
-            int retry = 5;  //重试次数
-            if (ea.BasicProperties.Headers != null && ea.BasicProperties.Headers.ContainsKey("retry")) retry = (int)ea.BasicProperties.Headers["retry"];
-            if (retry <= 0)
+            if (processMessage == null) return;
+            while (true)
             {
-                code = -2;  //消息超过重试次数
-                channel.BasicAck(ea.DeliveryTag, false);
-                return null;
+                BasicDeliverEventArgs ea = consumer.Queue.Dequeue();   //阻塞当前线程
+                byte[] body = ea.Body;
+                T result = null;
+                try
+                {
+                    result = BinarySerializerHelper.ByteArrayToObject<T>(body);
+                }
+                catch (Exception exception)
+                {
+                    DoParseError(ea);
+                    continue;
+                }
+                //处理消息
+                if (processMessage(result))
+                    channel.BasicAck(ea.DeliveryTag, false);
+                else
+                {
+                    channel.BasicAck(ea.DeliveryTag, false);
+                    channel.BasicPublish(exchange_name, route_key, ea.BasicProperties, body);
+                }
             }
-            try
+        }
+        /// <summary>
+        /// 解析消息格式失败，为了清除队列中格式不正确的消息
+        /// </summary>
+        /// <param name="ea"></param>
+        public static void DoParseError(BasicDeliverEventArgs ea)
+        {
+            if (ea.BasicProperties.Headers == null || !ea.BasicProperties.Headers.ContainsKey("parsedNum"))
             {
-                T result = BinarySerializerHelper.ByteArrayToObject<T>(body);
-                channel.BasicAck(ea.DeliveryTag, false);
-                return result;
+                //加消息头，标记该消息被解析的次数
+                ea.BasicProperties.Headers = new Dictionary<string, object>() { { "parsedNum", 0 } };
             }
-            catch (Exception ex) //重试机制
+            int parsedNum = (int)ea.BasicProperties.Headers["parsedNum"] + 1;
+            ea.BasicProperties.Headers["parsedNum"] = parsedNum;
+            LogHelper.ErrorLog("消息解析失败，尝试次数" + parsedNum);
+            channel.BasicAck(ea.DeliveryTag, false); //则从队列删除消息
+            if (parsedNum < 5)
             {
-                code = -1;  //解析出错
-                if (ea.BasicProperties.Headers == null) ea.BasicProperties.Headers = new Dictionary<string, object>() { { "retry", retry } };
-                if (ea.BasicProperties.Headers != null && !ea.BasicProperties.Headers.ContainsKey("retry")) ea.BasicProperties.Headers.Add("retry", retry);
-                ea.BasicProperties.Headers["retry"] = retry - 1;
-                channel.BasicAck(ea.DeliveryTag, false);
-                channel.BasicPublish(exchange_name, route_key, ea.BasicProperties, body); //不调用现成的方法，是因为会产生新的tcp连接
-                return null;
+                channel.BasicPublish(exchange_name, route_key, ea.BasicProperties, ea.Body); //吧消息扔到队尾
             }
         }
     }

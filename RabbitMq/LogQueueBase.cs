@@ -12,6 +12,7 @@ namespace EasyOa.Common
         public static string route_key = "sys_log";
         public static string queue_name = "sys_log_queue";
         public static string exchange_name = "sys_log_exchange";
+
         public static IModel ChannelInit(IConnection connection)
         {
             IModel channel = connection.CreateModel();
