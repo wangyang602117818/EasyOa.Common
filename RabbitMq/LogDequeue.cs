@@ -48,6 +48,7 @@ namespace EasyOa.Common
                 //处理消息
                 if (processMessage(result))
                     channel.BasicAck(ea.DeliveryTag, false);
+                //处理失败，吧消息放到队尾
                 else
                 {
                     channel.BasicAck(ea.DeliveryTag, false);
@@ -69,7 +70,7 @@ namespace EasyOa.Common
             int parsedNum = (int)ea.BasicProperties.Headers["parsedNum"] + 1;
             ea.BasicProperties.Headers["parsedNum"] = parsedNum;
             LogHelper.ErrorLog("消息解析失败，尝试次数" + parsedNum);
-            channel.BasicAck(ea.DeliveryTag, false); //则从队列删除消息
+            channel.BasicAck(ea.DeliveryTag, false); //从队列删除消息
             if (parsedNum < 5)
             {
                 channel.BasicPublish(exchange_name, route_key, ea.BasicProperties, ea.Body); //吧消息扔到队尾

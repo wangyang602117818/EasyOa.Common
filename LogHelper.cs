@@ -79,7 +79,7 @@ namespace EasyOa.Common
     }
     public class MyMessagePatternConverter : PatternLayoutConverter
     {
-        protected override void Convert(System.IO.TextWriter writer, log4net.Core.LoggingEvent loggingEvent)
+        protected override void Convert(TextWriter writer, log4net.Core.LoggingEvent loggingEvent)
         {
             if (Option != null)
             {
