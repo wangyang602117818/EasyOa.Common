@@ -16,8 +16,10 @@ namespace EasyOa.Common
         private IConnection connection;
         private IModel channel;
         private QueueingBasicConsumer consumer;
-        public LogDequeue()
+        private Func<T, bool> processMessage;
+        public LogDequeue(Func<T, bool> processMessage)
         {
+            this.processMessage = processMessage;
             connection = RabbitConnection.GetConnection();
             channel = ChannelInit(connection);
             channel.BasicQos(0, 50, false);   //qos
@@ -27,8 +29,8 @@ namespace EasyOa.Common
         /// <summary>
         /// 执行出队操作
         /// </summary>
-        /// <param name="processMessage">用于处理消息的委托</param>
-        public void DoDequeue(Func<T, bool> processMessage)
+        /// <param name="processMessage">用于处理消息的委托,返回值true表示消息处理成功，则消息从队列删除；false表示处理失败，消息重新回到队尾</param>
+        public void DoDequeue()
         {
             if (processMessage == null) return;
             while (true)
@@ -60,7 +62,7 @@ namespace EasyOa.Common
         /// 解析消息格式失败，为了清除队列中格式不正确的消息
         /// </summary>
         /// <param name="ea"></param>
-        public void DoParseError(BasicDeliverEventArgs ea)
+        private void DoParseError(BasicDeliverEventArgs ea)
         {
             if (ea.BasicProperties.Headers == null || !ea.BasicProperties.Headers.ContainsKey("parsedNum"))
             {
@@ -75,6 +77,10 @@ namespace EasyOa.Common
             {
                 channel.BasicPublish(exchange_name, route_key, ea.BasicProperties, ea.Body); //吧消息扔到队尾
             }
+        }
+        public void CloseConnection()
+        {
+            connection.Close();
         }
     }
 }
