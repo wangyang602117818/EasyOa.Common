@@ -14,7 +14,7 @@ namespace EasyOa.Common
     /// </summary>
     public class LogEnqueue : LogQueueBase
     {
-        private static IConnection connection;
+        private static IConnection connection;   //保持一个连接
         private static List<IModel> channels = new List<IModel>();  //保存取频道集合
         private static int channels_num = 3;  //频道个数
         /// <summary>

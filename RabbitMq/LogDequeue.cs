@@ -13,10 +13,10 @@ namespace EasyOa.Common
     /// </summary>
     public class LogDequeue<T> : LogQueueBase where T : class
     {
-        private static IConnection connection;
-        private static IModel channel;
-        private static QueueingBasicConsumer consumer;
-        static LogDequeue()
+        private IConnection connection;
+        private IModel channel;
+        private QueueingBasicConsumer consumer;
+        public LogDequeue()
         {
             connection = RabbitConnection.GetConnection();
             channel = ChannelInit(connection);
@@ -28,7 +28,7 @@ namespace EasyOa.Common
         /// 执行出队操作
         /// </summary>
         /// <param name="processMessage">用于处理消息的委托</param>
-        public static void DoDequeue(Func<T, bool> processMessage)
+        public void DoDequeue(Func<T, bool> processMessage)
         {
             if (processMessage == null) return;
             while (true)
@@ -60,7 +60,7 @@ namespace EasyOa.Common
         /// 解析消息格式失败，为了清除队列中格式不正确的消息
         /// </summary>
         /// <param name="ea"></param>
-        public static void DoParseError(BasicDeliverEventArgs ea)
+        public void DoParseError(BasicDeliverEventArgs ea)
         {
             if (ea.BasicProperties.Headers == null || !ea.BasicProperties.Headers.ContainsKey("parsedNum"))
             {
