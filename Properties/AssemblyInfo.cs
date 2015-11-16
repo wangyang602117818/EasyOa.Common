@@ -35,4 +35,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 //log4net配置文件
-[assembly: log4net.Config.XmlConfigurator(ConfigFile = "bin\\log4net.config", Watch = true)]
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "bin\\log4net.config", Watch = true)]  
