@@ -19,7 +19,7 @@ namespace EasyOa.Common
         /// <returns></returns>
         public static string ToMD5(this string str)
         {
-            return EncryptHelper.StringMd5(str);
+            return HashEncryptHelper.StringMd5(str);
         }
         /// <summary>
         /// 拼音转换
@@ -30,7 +30,7 @@ namespace EasyOa.Common
         public static string ToSpell(this string str, bool simple = false)
         {
             if (string.IsNullOrEmpty(str)) return "";
-            string fullPath = AppConfig.basePath + AppConfig.GetConfig("pinypath");
+            string fullPath = AppConfig.BasePath + AppConfig.GetConfig("pinypath");
             Dictionary<string, string[]> dict = FileHelper.ReadFileSplit(fullPath, "|");
             if (dict != null && dict.Count > 0)
             {
@@ -84,7 +84,7 @@ namespace EasyOa.Common
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string StringNotAsciiToUnicode(this string str)
+        public static string NotAsciiToUnicode(this string str)
         {
             if (string.IsNullOrEmpty(str)) return "";
             StringBuilder sb = new StringBuilder();
@@ -106,12 +106,40 @@ namespace EasyOa.Common
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string StringUnicodeToChar(this string str)
+        public static string UnicodeToChar(this string str)
         {
             if (string.IsNullOrEmpty(str)) return "";
             return Regex.Unescape(str);  //方式一
             //return Regex.Replace(str, @"\\u(\w{4})", (match) => ((char)int.Parse(match.Groups[1].Value, NumberStyles.HexNumber)).ToString());   //方式二
 
+        }
+        /// <summary>
+        /// 字符串转base64
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string ToBase64(this string str)
+        {
+            byte[] buffer = Encoding.UTF8.GetBytes(str);
+            return Convert.ToBase64String(buffer);
+        }
+        /// <summary>
+        /// 字符串空、null值判断
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this string str)
+        {
+            return string.IsNullOrEmpty(str);
+        }
+        /// <summary>
+        /// 字符串转int
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static int ToInt(this string str)
+        {
+            return Convert.ToInt32(str);
         }
     }
 }

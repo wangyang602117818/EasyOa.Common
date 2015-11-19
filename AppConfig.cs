@@ -13,7 +13,14 @@ namespace EasyOa.Common
         /// <summary>
         /// 网站跟目录  AppDomain.CurrentDomain.SetupInformation.ApplicationBase
         /// </summary>
-        public static string basePath = AppDomain.CurrentDomain.BaseDirectory;
+        public static string BasePath = AppDomain.CurrentDomain.BaseDirectory;
+        /// <summary>
+        /// 获取当前时间戳
+        /// </summary>
+        public static uint CurrentTimeStamp
+        {
+            get { return (uint)((DateTime.Now.ToUniversalTime().Ticks - 621355968000000000) / 10000000); }
+        }
         /// <summary>
         /// 获取配置文件节点
         /// </summary>
@@ -23,5 +30,6 @@ namespace EasyOa.Common
         {
             return ConfigurationManager.AppSettings[key];
         }
+
     }
 }

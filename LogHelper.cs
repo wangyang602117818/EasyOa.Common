@@ -14,32 +14,37 @@ namespace EasyOa.Common
 {
     public static class LogHelper
     {
-        private static readonly ILog errorLog = LogManager.GetLogger("FileErrorAppender");
         private static readonly ILog infoLog = LogManager.GetLogger("FileLogAppender");
         private static readonly ILog mailLog = LogManager.GetLogger("MailAppender");
         private static readonly ILog operateLog = LogManager.GetLogger("SqlServerAppender");
         /// <summary>
-        /// 错误日志 App_Data/Error/
+        /// 错误日志 
         /// </summary>
         /// <param name="ex">异常信息</param>
         public static void ErrorLog(Exception ex)
         {
-            errorLog.Error(ex);
+            infoLog.Error(ex);
         }
         /// <summary>
-        /// 错误日志 App_Data/Error/
+        /// 错误日志 
         /// </summary>
         /// <param name="str">异常信息</param>
         public static void ErrorLog(string str)
         {
-            errorLog.Error(str);
+            infoLog.Error(str);
         }
         /// <summary>
-        /// 文本日志(访问日志) App_Data/Log/
+        /// 文本日志
         /// </summary>
-        /// <param name="path">绝对路口</param>
-        /// <param name="name">文件名</param>
-        /// <param name="logInfo">文件类容</param>
+        /// <param name="ex"></param>
+        public static void InfoLog(Exception ex)
+        {
+            infoLog.Error(ex);
+        }
+        /// <summary>
+        /// 文本日志
+        /// </summary>
+        /// <param name="str"></param>
         public static void InfoLog(string str)
         {
             infoLog.Info(str);
@@ -74,7 +79,7 @@ namespace EasyOa.Common
     }
     public class MyMessagePatternConverter : PatternLayoutConverter
     {
-        protected override void Convert(System.IO.TextWriter writer, log4net.Core.LoggingEvent loggingEvent)
+        protected override void Convert(TextWriter writer, log4net.Core.LoggingEvent loggingEvent)
         {
             if (Option != null)
             {
