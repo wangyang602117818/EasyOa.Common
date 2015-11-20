@@ -52,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alipay\DirectPay\ModelBase.cs" />
+    <Compile Include="Alipay\DirectPay\RequestModel.cs" />
     <Compile Include="AppConfig.cs" />
     <Compile Include="ConstData.cs" />
     <Compile Include="Encrypt\AsymmetricEncryptHelper.cs" />
@@ -88,6 +90,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

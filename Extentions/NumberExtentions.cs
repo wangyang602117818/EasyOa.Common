@@ -16,7 +16,7 @@ namespace EasyOa.Common
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static string IntToBinary(this Int32 value)
+        public static string ToBinary(this Int32 value)
         {
             return Convert.ToString(value, 2);
         }
@@ -25,7 +25,7 @@ namespace EasyOa.Common
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static string IntToHex(this Int32 value)
+        public static string ToHex(this Int32 value)
         {
             return Convert.ToString(value, 16);
         }

@@ -15,7 +15,7 @@ namespace EasyOa.Common
         /// </summary>
         public static string BasePath = AppDomain.CurrentDomain.BaseDirectory;
         /// <summary>
-        /// 获取当前时间戳
+        /// 获取当前系统时间戳
         /// </summary>
         public static uint CurrentTimeStamp
         {
