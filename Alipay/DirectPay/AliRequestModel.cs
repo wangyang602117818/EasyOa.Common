@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EasyOa.Common.Alipay.DirectPay
 {
-    public class RequestModel : ModelBase
+    public class AliRequestModel : AliModelBase
     {
         public string out_trade_no { get; set; }  //商户唯一订单编号
         public string subject { get; set; }    //商品的名称,max(128)
@@ -23,8 +24,8 @@ namespace EasyOa.Common.Alipay.DirectPay
         public string buyer_email { get; set; }  //可空 买家支付宝账号，手机或邮箱
         public string buyer_account_name { get; set; }  //可空 买家别名支付宝账号
 
-        public decimal price { get; set; }   //可空 单价，元，精确到小数点后2位
-        public int quantity { get; set; }   //可空 数量
+        public decimal? price { get; set; }   //可空 单价，元，精确到小数点后2位
+        public int? quantity { get; set; }   //可空 数量
         public string body { get; set; }    //可空 商品描述
         public string show_url { get; set; }  //可空 收银台页面上，商品展示的超链接。
         public string paymethod { get; set; }  //可空 creditPay（信用支付）directPay（余额支付,默认）

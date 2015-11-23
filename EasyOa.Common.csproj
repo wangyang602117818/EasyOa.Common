@@ -43,6 +43,7 @@
       <HintPath>..\libs\RabbitMQ.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,8 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alipay\DirectPay\ModelBase.cs" />
-    <Compile Include="Alipay\DirectPay\RequestModel.cs" />
+    <Compile Include="Alipay\AliConfig.cs" />
+    <Compile Include="Alipay\DirectPay\AliModelBase.cs" />
+    <Compile Include="Alipay\DirectPay\AliRequest.cs" />
+    <Compile Include="Alipay\DirectPay\AliRequestModel.cs" />
     <Compile Include="AppConfig.cs" />
     <Compile Include="ConstData.cs" />
     <Compile Include="Encrypt\AsymmetricEncryptHelper.cs" />
@@ -64,6 +67,11 @@
     <Compile Include="Extentions\EnumExtention.cs" />
     <Compile Include="Extentions\NumberExtentions.cs" />
     <Compile Include="Extentions\RandomExtention.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Util\BuildRequestParams.cs" />
     <Compile Include="Util\ObjectHelper.cs" />
     <Compile Include="RabbitMq\LogDequeue.cs" />
@@ -90,7 +98,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
