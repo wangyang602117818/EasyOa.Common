@@ -65,5 +65,19 @@ namespace EasyOa.Common
             string fullpath = AppConfig.BasePath + DateTime.Now.ToString("yyyyMMdd");
             WriteFile(fullpath, filename, msg);
         }
+        /// <summary>
+        /// 获取文件的真实类型，jpg/gif/png/bmp
+        /// </summary>
+        /// <param name="fileData"></param>
+        /// <returns></returns>
+        public static string GetFileSuffix(byte[] fileData)
+        {
+            if (fileData == null || fileData.Length < 10) return null;
+            if (fileData[0] == 'G' && fileData[1] == 'I' && fileData[2] == 'F') return "GIF";
+            if (fileData[1] == 'P' && fileData[2] == 'N' && fileData[3] == 'G') return "PNG";
+            if (fileData[6] == 'J' && fileData[7] == 'F' && fileData[8] == 'I' && fileData[9] == 'F') return "JPG";
+            if (fileData[0] == 'B' && fileData[1] == 'M') return "BMP";
+            return null;
+        }
     }
 }
