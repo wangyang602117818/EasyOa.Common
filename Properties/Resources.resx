@@ -127,6 +127,6 @@
     <value>{0}必须在{1}-{2}之间</value>
   </data>
   <data name="Required" xml:space="preserve">
-    <value>{0} 项为必填项</value>
+    <value>{0}项为必填项</value>
   </data>
 </root>
