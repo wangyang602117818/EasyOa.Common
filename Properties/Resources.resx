@@ -126,7 +126,13 @@
   <data name="Range" xml:space="preserve">
     <value>{0}必须在{1}-{2}之间</value>
   </data>
+  <data name="Regular" xml:space="preserve">
+    <value>{0}项格式不正确</value>
+  </data>
   <data name="Required" xml:space="preserve">
     <value>{0}项为必填项</value>
+  </data>
+  <data name="StringLength" xml:space="preserve">
+    <value>{0}项长度不正确</value>
   </data>
 </root>
