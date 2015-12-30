@@ -124,6 +124,24 @@ namespace EasyOa.Common
             return Convert.ToBase64String(buffer);
         }
         /// <summary>
+        /// 字符串转UTF8字节数组
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static byte[] StrToBuffer(this string str)
+        {
+            return Encoding.UTF8.GetBytes(str);
+        }
+        /// <summary>
+        /// base64字符串转UTF8字节数组
+        /// </summary>
+        /// <param name="base64Str"></param>
+        /// <returns></returns>
+        public static byte[] Base64StrToBuffer(this string base64Str)
+        {
+            return Convert.FromBase64String(base64Str);
+        }
+        /// <summary>
         /// 字符串空、null值判断
         /// </summary>
         /// <param name="str"></param>

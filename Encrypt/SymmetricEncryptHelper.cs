@@ -18,16 +18,17 @@ namespace EasyOa.Common
         /// <summary>
         /// Aes加密算法，替代des
         /// </summary>
-        /// <param name="sourceString"></param>
-        /// <param name="key">base64形式的key。如果为明文字符串则长度：16/24/32（改方法不支持）</param>
+        /// <param name="sourceString">待加密字符串</param>
+        /// <param name="key">base64形式的key,256位。如果为明文字符串则长度只能是：16/24/32</param>
+        /// <param name="isBase64Key">是否是base64形式的key</param>
         /// <returns></returns>
-        public static string AesEncode(string sourceString, string key)
+        public static string AesEncode(string sourceString, string key, bool isBase64Key = true)
         {
-            byte[] keyBytes = Convert.FromBase64String(key);
+            byte[] keyBytes = isBase64Key ? key.Base64StrToBuffer() : key.StrToBuffer();
             byte[] valueBytes = Encoding.UTF8.GetBytes(sourceString);
             using (Rijndael rijndael = Rijndael.Create())
             {
-                rijndael.Mode = CipherMode.ECB;
+                rijndael.Mode = CipherMode.ECB;  //ecb模式下跟IV没有关系
                 using (ICryptoTransform transform = rijndael.CreateEncryptor(keyBytes, IV))
                 {
                     MemoryStream memoryStream = new MemoryStream();
@@ -43,12 +44,13 @@ namespace EasyOa.Common
         /// <summary>
         /// Aes解密算法
         /// </summary>
-        /// <param name="secretString"></param>
-        /// <param name="key"></param>
+        /// <param name="secretString">密文</param>
+        /// <param name="key">base64形式的key，256位</param>
+        /// <param name="isBase64Key">是否是base64形式的key</param>
         /// <returns></returns>
-        public static string AesDecode(string secretString, string key)
+        public static string AesDecode(string secretString, string key, bool isBase64Key = true)
         {
-            byte[] keyBytes = Convert.FromBase64String(key);
+            byte[] keyBytes = isBase64Key ? key.Base64StrToBuffer() : key.StrToBuffer();
             byte[] inputBytes = Convert.FromBase64String(secretString);
             using (Rijndael rijndael = Rijndael.Create())
             {
@@ -182,7 +184,7 @@ namespace EasyOa.Common
             get { return Convert.ToBase64String(TripleDES.Create().Key); }
         }
         /// <summary>
-        /// 生成AES加密密钥
+        /// 生成256位的AES加密密钥
         /// </summary>
         public static string GenerateAESKey
         {
