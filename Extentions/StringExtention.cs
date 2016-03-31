@@ -159,5 +159,16 @@ namespace EasyOa.Common
         {
             return Convert.ToInt32(str);
         }
+        /// <summary>
+        /// TimeStamp字符串转DateTime
+        /// </summary>
+        /// <param name="stringTimeStamp">unix时间戳</param>
+        /// <returns></returns>
+        public static DateTime ToDateTime(this string stringTimeStamp)
+        {
+            double timeStamp = Convert.ToDouble(stringTimeStamp);
+            return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(timeStamp);
+        }
+
     }
 }
