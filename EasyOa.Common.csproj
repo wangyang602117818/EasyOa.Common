@@ -62,6 +62,7 @@
     <Compile Include="Encrypt\AsymmetricEncryptHelper.cs" />
     <Compile Include="Enum\AcceptType.cs" />
     <Compile Include="Enum\ContentType.cs" />
+    <Compile Include="Enum\ErrorCode.cs" />
     <Compile Include="Enum\HttpMethodType.cs" />
     <Compile Include="Enum\SMSParaType.cs" />
     <Compile Include="Extentions\DateTimeExtention.cs" />
