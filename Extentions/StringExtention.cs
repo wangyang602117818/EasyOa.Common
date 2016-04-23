@@ -170,5 +170,16 @@ namespace EasyOa.Common
             return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(timeStamp);
         }
 
+        /// <summary>
+        /// 取字符串,超过长度就取最大的值
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string SubStringNoException(this string str, int startIndex, int length)
+        {
+            if (length > str.Length - startIndex) length = str.Length - startIndex;
+            return str.Substring(startIndex, length);
+        }
+        
     }
 }
