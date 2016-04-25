@@ -16,7 +16,7 @@ namespace EasyOa.Common
         private IConnection connection;
         private IModel channel;
         private QueueingBasicConsumer consumer;
-        private Func<T, bool> processMessage;
+        private Func<T, bool> processMessage;   //由外部注入的处理程序来处理消息
         public LogDequeue(Func<T, bool> processMessage)
         {
             this.processMessage = processMessage;
