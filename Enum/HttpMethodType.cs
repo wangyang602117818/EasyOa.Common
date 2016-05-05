@@ -10,12 +10,12 @@ namespace EasyOa.Common
     public enum HttpMethodType
     {
         [Description("post")]
-        post,
+        Post,
         [Description("get")]
-        get,
+        Get,
         [Description("put")]
-        put,
+        Put,
         [Description("delete")]
-        delete,
+        Delete,
     }
 }

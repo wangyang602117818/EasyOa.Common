@@ -16,22 +16,22 @@ namespace EasyOa.Common
         /// 适合参数以url编码方式的，post方式但是没有上传文件的
         /// </summary>
         [Description("application/x-www-form-urlencoded")]
-        urlencoded,
+        UrlEncoded,
         /// <summary>
         /// 适合有上传文件的
         /// </summary>
         [Description("multipart/form-data")]
-        formdata,
+        Formdata,
         /// <summary>
         /// 适合特殊情况，以xml方式传参数
         /// </summary>
         [Description("application/xml;charset=utf-8")]
-        xml,
+        Xml,
         /// <summary>
         /// 适合特殊情况，以json方式传参数
         /// </summary>
         [Description("application/json;charset=utf-8")]
-        json,
+        Json,
 
     }
     /// <summary>
@@ -43,30 +43,30 @@ namespace EasyOa.Common
         /// 默认以html方式响应
         /// </summary>
         [Description("text/html;charset=utf-8")]
-        html,
+        Html,
         /// <summary>
         /// 以文本方式响应
         /// </summary>
         [Description("text/plain;charset=utf-8")]
-        text,
+        Text,
         /// <summary>
         /// 以脚本形式响应
         /// </summary>
         [Description("text/javascript")]
-        javascript,
+        Javascript,
         /// <summary>
         /// 以css形式响应
         /// </summary>
         [Description("text/css")]
-        css,
+        Css,
         /// <summary>
         /// 图像形式响应
         /// </summary>
         [Description("image/jpeg")]
-        jpg,
+        Jpg,
         [Description("image/gif")]
-        gif,
+        Gif,
         [Description("image/png")]
-        png,
+        Png,
     }
 }

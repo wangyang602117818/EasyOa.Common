@@ -35,7 +35,7 @@ namespace EasyOa.Common
             return Post(url, paras, headers, null, null);
         }
         /// <summary>
-        /// 发送post请求,或put
+        /// 发送post请求
         /// </summary>
         /// <param name="url">地址</param>
         /// <param name="paras">参数</param>
@@ -43,10 +43,12 @@ namespace EasyOa.Common
         /// <param name="contentType">请求内容格式</param>
         /// <param name="accept">接收内容格式</param>
         /// <returns></returns>
-        public static string Post(string url, string paras, Dictionary<string, string> headers, RequestContentType? contentType, AcceptType? accept, HttpMethodType method = HttpMethodType.post)
+        public static string Post(string url, string paras, Dictionary<string, string> headers, RequestContentType? contentType, AcceptType? accept)
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
-            request.Method = method.GetDescription();
+            request.Method = HttpMethodType.Post.GetDescription();
+            request.ContentType = RequestContentType.UrlEncoded.GetDescription();
+            request.Accept = AcceptType.json.GetDescription();
             if (headers != null)
             {
                 foreach (KeyValuePair<string, string> kv in headers)
@@ -78,16 +80,16 @@ namespace EasyOa.Common
             }
         }
         /// <summary>
-        /// get请求,或delete
+        /// get请求
         /// </summary>
         /// <param name="url">地址</param>
         /// <param name="paras">参数</param>
         /// <returns></returns>
-        public static string Get(string url, string paras, HttpMethodType method = HttpMethodType.get)
+        public static string Get(string url, string paras)
         {
             if (!string.IsNullOrEmpty(paras)) url = url + "?" + paras;
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
-            request.Method = method.GetDescription();
+            request.Method = HttpMethodType.Get.GetDescription();
             try
             {
                 using (WebResponse response = request.GetResponse())
