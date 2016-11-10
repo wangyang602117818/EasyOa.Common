@@ -190,6 +190,7 @@ namespace EasyOa.Common
 
         public static string ToStr(this Stream stream)
         {
+			stream.Position = 0;
             StreamReader reader = new StreamReader(stream);
             return reader.ReadToEnd();
         }
