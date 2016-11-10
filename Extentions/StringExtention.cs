@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -180,6 +181,18 @@ namespace EasyOa.Common
             if (length > str.Length - startIndex) length = str.Length - startIndex;
             return str.Substring(startIndex, length);
         }
-        
+
+        public static Stream ToStream(this string str)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(str);
+            return new MemoryStream(bytes);
+        }
+
+        public static string ToStr(this Stream stream)
+        {
+            StreamReader reader = new StreamReader(stream);
+            return reader.ReadToEnd();
+        }
+
     }
 }
