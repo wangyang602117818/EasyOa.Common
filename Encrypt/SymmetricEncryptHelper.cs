@@ -24,20 +24,25 @@ namespace EasyOa.Common
         /// <returns></returns>
         public static string AesEncode(string sourceString, string key, bool isBase64Key = true)
         {
+            byte[] bytes = Encoding.UTF8.GetBytes(sourceString);
+            return Convert.ToBase64String(AesEncode(new MemoryStream(bytes), key, isBase64Key).ToArray());
+        }
+
+        public static MemoryStream AesEncode(Stream sourceStream, string key, bool isBase64Key = true)
+        {
             byte[] keyBytes = isBase64Key ? key.Base64StrToBuffer() : key.StrToBuffer();
-            byte[] valueBytes = Encoding.UTF8.GetBytes(sourceString);
             using (Rijndael rijndael = Rijndael.Create())
             {
                 rijndael.Mode = CipherMode.ECB;  //ecb模式下跟IV没有关系
                 using (ICryptoTransform transform = rijndael.CreateEncryptor(keyBytes, IV))
                 {
                     MemoryStream memoryStream = new MemoryStream();
-                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, transform, CryptoStreamMode.Write))
-                    {
-                        cryptoStream.Write(valueBytes, 0, valueBytes.Length); //往memoryStream中写入流
-                        cryptoStream.FlushFinalBlock();
-                        return Convert.ToBase64String(memoryStream.ToArray());
-                    }
+                    CryptoStream cryptoStream = new CryptoStream(memoryStream, transform, CryptoStreamMode.Write);
+                    sourceStream.Position = 0;
+                    sourceStream.CopyTo(cryptoStream); //往memoryStream中写入流
+                    cryptoStream.FlushFinalBlock();
+                    return memoryStream;
+
                 }
             }
         }
@@ -50,20 +55,25 @@ namespace EasyOa.Common
         /// <returns></returns>
         public static string AesDecode(string secretString, string key, bool isBase64Key = true)
         {
+            byte[] bytes = Convert.FromBase64String(secretString);
+            return AesDecode(new MemoryStream(bytes), key, isBase64Key).ToStr();
+        }
+
+        public static MemoryStream AesDecode(Stream sourceStream, string key, bool isBase64Key = true)
+        {
             byte[] keyBytes = isBase64Key ? key.Base64StrToBuffer() : key.StrToBuffer();
-            byte[] inputBytes = Convert.FromBase64String(secretString);
             using (Rijndael rijndael = Rijndael.Create())
             {
                 rijndael.Mode = CipherMode.ECB;
-                using (ICryptoTransform transform = rijndael.CreateDecryptor(keyBytes, IV))  //创建一个解密器
+                using (ICryptoTransform transform = rijndael.CreateDecryptor(keyBytes, IV)) //创建一个解密器
                 {
                     MemoryStream memoryStream = new MemoryStream();
-                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, transform, CryptoStreamMode.Write))
-                    {
-                        cryptoStream.Write(inputBytes, 0, inputBytes.Length);
-                        cryptoStream.FlushFinalBlock();
-                        return Encoding.UTF8.GetString(memoryStream.ToArray());
-                    }
+                    CryptoStream cryptoStream = new CryptoStream(memoryStream, transform, CryptoStreamMode.Write);
+                    sourceStream.Position = 0;
+                    sourceStream.CopyTo(cryptoStream);
+                    cryptoStream.FlushFinalBlock();
+                    return memoryStream;
+
                 }
             }
         }
