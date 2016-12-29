@@ -113,7 +113,7 @@ namespace EasyOa.Common
         /// <param name="fullFilePath">本文件路径</param>
         /// <param name="paras">参数</param>
         /// <returns></returns>
-        public static string PostAttachLocalFile(string url, string fullFilePath, string paras)
+        public static string PostAttachLocalFile(string url, string fullFilePath, Dictionary<string, string> paras)
         {
             if (!File.Exists(fullFilePath)) return null;
             byte[] fileBytes = File.ReadAllBytes(fullFilePath);
@@ -126,7 +126,7 @@ namespace EasyOa.Common
         /// <param name="fileUrl">文件在网络的位置</param>
         /// <param name="paras">参数</param>
         /// <returns></returns>
-        public static string PostAttachWebFile(string url, string fileUrl, string paras)
+        public static string PostAttachWebFile(string url, string fileUrl, Dictionary<string, string> paras)
         {
             byte[] fileBytes;
             string fileName;
@@ -146,7 +146,7 @@ namespace EasyOa.Common
             }
             return null;
         }
-        private static string PostFile(string url, byte[] fileBytes, string fileName, string paras)
+        private static string PostFile(string url, byte[] fileBytes, string fileName, Dictionary<string,string> paras)
         {
             string boundary = "----Ij5ei4ae0ei4cH2ae0Ef1ei4Ij5gL6";
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
@@ -163,13 +163,12 @@ namespace EasyOa.Common
             byte[] LFBytes = Encoding.UTF8.GetBytes("\r\n");
             stream.Write(LFBytes, 0, LFBytes.Length);
             //传参数数据
-            NameValueCollection nameValueCollection = ParseRequestParams.ParseToNameValueCollection(paras);
             StringBuilder sb_params = new StringBuilder();
-            foreach (string key in nameValueCollection.Keys)
+            foreach (string key in paras.Keys)
             {
                 sb_params.Append("--" + boundary + "\r\n");
                 sb_params.Append("Content-Disposition: form-data; name=\"" + key + "\"\r\n\r\n");
-                sb_params.Append(nameValueCollection[key] + "\r\n");
+                sb_params.Append(paras[key] + "\r\n");
             }
             byte[] paramsBytes = Encoding.UTF8.GetBytes(sb_params.ToString());
             stream.Write(paramsBytes, 0, paramsBytes.Length);
