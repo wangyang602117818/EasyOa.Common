@@ -146,22 +146,25 @@ namespace EasyOa.Common
             }
             return null;
         }
-        private static string PostFile(string url, byte[] fileBytes, string fileName, Dictionary<string,string> paras)
+        public Task<string> PostFile(string url, Dictionary<string, byte[]> files, Dictionary<string, string> paras)
         {
             string boundary = "----Ij5ei4ae0ei4cH2ae0Ef1ei4Ij5gL6";
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "post";
             request.ContentType = "multipart/form-data; boundary=" + boundary;
             Stream stream = request.GetRequestStream();  //请求流
-            //文件开始标记
-            string fileBegin = "--" + boundary + "\r\nContent-Disposition: form-data;name=\"file\";filename=\"" + fileName + "\"\r\nContent-Type: application/octet-stream; charset=utf-8\r\n\r\n";
-            byte[] bytes = Encoding.UTF8.GetBytes(fileBegin);
-            stream.Write(bytes, 0, bytes.Length);
-            ////传文件数据
-            stream.Write(fileBytes, 0, fileBytes.Length);
-            //传换行数据
-            byte[] LFBytes = Encoding.UTF8.GetBytes("\r\n");
-            stream.Write(LFBytes, 0, LFBytes.Length);
+            foreach (var item in files)
+            {
+                //文件开始标记
+                string fileBegin = "--" + boundary + "\r\nContent-Disposition: form-data;name=\"file\";filename=\"" + item.Key + "\"\r\nContent-Type: application/octet-stream; charset=utf-8\r\n\r\n";
+                byte[] bytes = Encoding.UTF8.GetBytes(fileBegin);
+                stream.Write(bytes, 0, bytes.Length);
+                ////传文件数据
+                stream.Write(item.Value, 0, item.Value.Length);
+                //传换行数据
+                byte[] LFBytes = Encoding.UTF8.GetBytes("\r\n");
+                stream.Write(LFBytes, 0, LFBytes.Length);
+            }
             //传参数数据
             StringBuilder sb_params = new StringBuilder();
             foreach (string key in paras.Keys)
@@ -181,13 +184,12 @@ namespace EasyOa.Common
                 {
                     using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                     {
-                        return reader.ReadToEnd();
+                        return reader.ReadToEndAsync();
                     }
                 }
             }
             catch (Exception ex)
             {
-                LogHelper.ErrorLog(ex);
                 return null;
             }
         }
