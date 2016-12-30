@@ -106,46 +106,6 @@ namespace EasyOa.Common
                 return null;
             }
         }
-        /// <summary>
-        /// http协议上传本地文件
-        /// </summary>
-        /// <param name="url">上传文件的url地址</param>
-        /// <param name="fullFilePath">本文件路径</param>
-        /// <param name="paras">参数</param>
-        /// <returns></returns>
-        public static string PostAttachLocalFile(string url, string fullFilePath, Dictionary<string, string> paras)
-        {
-            if (!File.Exists(fullFilePath)) return null;
-            byte[] fileBytes = File.ReadAllBytes(fullFilePath);
-            return PostFile(url, fileBytes, Path.GetFileName(fullFilePath), paras);
-        }
-        /// <summary>
-        /// http协议上传网络文件
-        /// </summary>
-        /// <param name="url">要上传文件的url地址</param>
-        /// <param name="fileUrl">文件在网络的位置</param>
-        /// <param name="paras">参数</param>
-        /// <returns></returns>
-        public static string PostAttachWebFile(string url, string fileUrl, Dictionary<string, string> paras)
-        {
-            byte[] fileBytes;
-            string fileName;
-            try
-            {
-                fileBytes = new WebClient().DownloadData(fileUrl);
-                fileName = Path.GetFileName(fileUrl);
-            }
-            catch (WebException ex)
-            {
-                LogHelper.ErrorLog(ex);
-                return null;
-            }
-            if (fileBytes.Length > 0 && !string.IsNullOrEmpty(fileName))
-            {
-                return PostFile(url, fileBytes, fileName, paras);
-            }
-            return null;
-        }
         public Task<string> PostFile(string url, Dictionary<string, byte[]> files, Dictionary<string, string> paras)
         {
             string boundary = "----Ij5ei4ae0ei4cH2ae0Ef1ei4Ij5gL6";
